@@ -36,7 +36,6 @@ const pushSingle = (res, resource) => {
 
 const spParser = (req, res, next) => {
     const sp = (htmlPath) => {
-        const html = fs.readFileSync(htmlPath);
         const resources = extractor(htmlPath)
         debug('adsfasdf', resources)
         // const resources =  [ {filePath: 'awesum.jpg', contentType: 'img/jpeg'}, {filePath: 'salt.jpg', contentType: 'img/jpeg'} ]
@@ -44,9 +43,11 @@ const spParser = (req, res, next) => {
 
         Promise.all(PromiseArr)
         .then((files)=>{
-            res.status(200);
-            res.end(html)
-            
+            const html = readFileAsync(htmlPath).then((file) => {
+                res.status(200);
+                res.end(html)
+                debug('in promiseall!!!!', html)
+            })
         })
         .catch((err)=>{
             debug("error in streaming files:", err)

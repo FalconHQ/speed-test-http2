@@ -6,9 +6,11 @@ const spParser = require('./themiddleware.js')
 
 const app = express();
 
-app.get('/', spParser,  (req, res) =>{
-    res.sp('index.html')
-})
+app.use(express.static('.'))
+
+// app.get('/', spParser,  (req, res) =>{
+//     res.sp('index.html')
+// })
 
 const PORT = 3000;
 
