@@ -1,0 +1,23 @@
+{
+  "name": "speedy-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "DEBUG=server,spParser nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.3",
+    "html-static-asset-path-extractor": "^1.0.3",
+    "mz": "^2.6.0",
+    "spdy": "^3.4.7"
+  },
+  "devDependencies": {
+    "chalk": "^1.1.3",
+    "debug": "^2.6.8",
+    "nodemon": "^1.11.0"
+  }
+}
