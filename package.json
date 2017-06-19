@@ -2,7 +2,7 @@
   "name": "speedy-test",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "themiddleware.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "DEBUG=server,spParser nodemon server.js"
@@ -12,6 +12,7 @@
   "dependencies": {
     "express": "^4.15.3",
     "html-static-asset-path-extractor": "^1.0.3",
+    "http2": "^3.3.6",
     "mz": "^2.6.0",
     "spdy": "^3.4.7"
   },
