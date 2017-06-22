@@ -5,19 +5,20 @@ const h2 = require('spdy')
 const fs = require('fs')
 const path = require('path')
 const debug = require('debug') ('server')
-const spParser = require('./themiddleware.js')
-
+const spParser = require('h2-server-push')
+// const spParser = require('../h2-server-push/themiddleware.js')
+// HTTP2
 // express.request.__proto__ = h2.IncomingMessage.prototype;
 // express.response.__proto__ = h2.ServerResponse.prototype;
-
 const app = express();
 
-// const jq = fs.readFileSync('./jquery.min.js')
-// const processing = fs.readFileSync('./processing.min.js')
-const index = fs.readFileSync('./index.html')
-
+// HTTP
 // app.use(express.static('.'))
 
+// HTTP2
+// const jq = fs.readFileSync('./jquery.min.js')
+// const processing = fs.readFileSync('./processing.min.js')
+// const index = fs.readFileSync('./index.html')
 // app.get('/', (req, res) => {
 //   let push = res.push('/jquery.min.js')
 //   push.writeHead(200)
@@ -28,14 +29,16 @@ const index = fs.readFileSync('./index.html')
 //   res.end(index);
 // })
 
+
+// //SPDY
 app.get('/', spParser,  (req, res) =>{
+    console.log('hello')
     res.sp('index.html')
 })
 
+
+//EVERYTHING HTTP HTTP2 SPDY
 const PORT = 3000;
-
-// app.listen(3000)
-
 h2.createServer({
     key: fs.readFileSync('./key.pem'),
     cert: fs.readFileSync('./cert.pem')

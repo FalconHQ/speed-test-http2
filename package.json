@@ -11,7 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.15.3",
-    "html-static-asset-path-extractor": "^1.0.3",
+    "h2-server-push": "^1.0.1",
+    "html-static-asset-path-extractor": "^1.0.5",
     "http2": "^3.3.6",
     "mz": "^2.6.0",
     "spdy": "^3.4.7"
