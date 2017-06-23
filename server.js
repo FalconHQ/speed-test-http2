@@ -5,12 +5,14 @@ const h2 = require('spdy')
 const fs = require('fs')
 const path = require('path')
 const debug = require('debug') ('server')
-const spParser = require('h2-server-push')
+const {spParser, preParse } = require('h2-server-push')
+
 // const spParser = require('../h2-server-push/themiddleware.js')
 // HTTP2
 // express.request.__proto__ = h2.IncomingMessage.prototype;
 // express.response.__proto__ = h2.ServerResponse.prototype;
 const app = express();
+preParse('./public');
 
 // HTTP
 // app.use(express.static('.'))
@@ -32,8 +34,7 @@ const app = express();
 
 // //SPDY
 app.get('/', spParser,  (req, res) =>{
-    console.log('hello')
-    res.sp('index.html')
+    res.sp()
 })
 
 
