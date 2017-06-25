@@ -1,23 +1,41 @@
 const express = require('express');
 const h2 = require('spdy')
-// const h2 = require('http2')
-// const h2 = require('https')
 const fs = require('fs')
 const path = require('path')
-const debug = require('debug') ('server')
+const debug = require('debug') ('h2_server')
 const {spParser, preParse } = require('h2-server-push')
 
-// const spParser = require('../h2-server-push/themiddleware.js')
+const app = express();
+const PORT = 8081;
+
+
+
+let resourceMap = spParser.parsedObj;
+console.log("RS map", resourceMap)
+
+app.get('/', spParser('public'),  (req, res) => {
+    res.sp('index.html', 'public')
+})
+
+h2.createServer({
+    key: fs.readFileSync('./certificate/key.pem'),
+    cert: fs.readFileSync('./certificate/cert.pem')
+}, app)
+
+.listen(PORT, (err) => {   if(err) {
+    debug(`error!!!!!!!:${err}`)
+        throw new Error(err)
+    }
+    debug(`listening at localhost:${PORT}`)
+})
+
+
+
 // HTTP2
+// const h2 = require('http2')
+// const h2 = require('https')
 // express.request.__proto__ = h2.IncomingMessage.prototype;
 // express.response.__proto__ = h2.ServerResponse.prototype;
-const app = express();
-preParse('./public');
-
-// HTTP
-// app.use(express.static('.'))
-
-// HTTP2
 // const jq = fs.readFileSync('./jquery.min.js')
 // const processing = fs.readFileSync('./processing.min.js')
 // const index = fs.readFileSync('./index.html')
@@ -30,24 +48,3 @@ preParse('./public');
 //   fs.createReadStream(path.join(__dirname, '/processing.min.js')).pipe(push);
 //   res.end(index);
 // })
-
-
-// //SPDY
-app.get('/', spParser,  (req, res) =>{
-    res.sp()
-})
-
-
-//EVERYTHING HTTP HTTP2 SPDY
-const PORT = 3000;
-h2.createServer({
-    key: fs.readFileSync('./key.pem'),
-    cert: fs.readFileSync('./cert.pem')
-}, app)
-
-.listen(PORT, (err) => {   if(err) {
-    debug(`error!!!!!!!:${err}`)
-        throw new Error(err)
-    }
-    debug(`listening at localhost:${PORT}`)
-})
