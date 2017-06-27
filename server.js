@@ -8,10 +8,9 @@ const {spParser} = require('h2-server-push')
 const app = express();
 const PORT = 8081;
 
-//preparse resources
-let push = spParser('public')
+let registerParser = spParser('public');
 
-app.get('/', push, (req, res) => {
+app.get('/', registerParser,  (req, res) => {
     res.sp('index.html', 'public')
 })
 
