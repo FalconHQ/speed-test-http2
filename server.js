@@ -3,17 +3,15 @@ const h2 = require('spdy')
 const fs = require('fs')
 const path = require('path')
 const debug = require('debug') ('h2_server')
-const {spParser, preParse } = require('h2-server-push')
+const {spParser} = require('h2-server-push')
 
 const app = express();
 const PORT = 8081;
 
+//preparse resources
+let push = spParser('public')
 
-
-let resourceMap = spParser.parsedObj;
-console.log("RS map", resourceMap)
-
-app.get('/', spParser('public'),  (req, res) => {
+app.get('/', push, (req, res) => {
     res.sp('index.html', 'public')
 })
 
