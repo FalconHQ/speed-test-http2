@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cookie-parser": "^1.4.3",
     "express": "^4.15.3",
     "h2-server-push": "^1.0.1",
     "html-static-asset-path-extractor": "^1.0.5",
